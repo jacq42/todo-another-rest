@@ -20,6 +20,12 @@ jobs:
           name: Test Report
           path: target/surefire-reports/
 
+      - name: Debugging
+        run: |
+          ls -la .
+          ls -la target
+          ls -la target/surefire-reports
+
       - name: Generate test report
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
