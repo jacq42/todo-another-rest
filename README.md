@@ -13,5 +13,5 @@ Sample Spring boot application with a REST Controller
 - [ ] add endpoint to create new TODOs
 - [ ] add endpoint to list all TODOs
 - [ ] add OpenAPI documentation
-- [ ] add persistence with Hibernate and H2
+- [x] add persistence with Hibernate and H2
 - [ ] add Jenkins pipeline
