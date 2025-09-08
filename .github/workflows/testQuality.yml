@@ -21,7 +21,7 @@ jobs:
 
       - name: Run PITest
         run: |
-          ./mvnw pitest:mutationCoverage
+          ./mvnw clean test pitest:mutationCoverage
 
       - name: Upload test report
         if: always()
