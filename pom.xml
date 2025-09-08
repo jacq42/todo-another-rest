@@ -95,6 +95,7 @@
                     </outputFormats>
                     <mutationThreshold>80</mutationThreshold>
                     <coverageThreshold>70</coverageThreshold>
+                    <verbose>true</verbose>
                 </configuration>
                 <dependencies>
                     <dependency>
