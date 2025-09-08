@@ -10,3 +10,11 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      pitest:
+        patterns:
+          - "org.pitest:*"
+      spring:
+        patterns:
+          - "org.springframework:*"
+          - "org.springframework.boot:*"
