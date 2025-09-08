@@ -17,11 +17,12 @@ jobs:
       - name: Download test report
         uses: actions/download-artifact@v4
         with:
-          path: target/surefire-reports
+          name: Test Report
+          path: target/surefire-reports/
 
       - name: Generate test report
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
           check_name: Test Results
-          junit_files: ./**/target/surefire-reports/TEST-*.xml
+          files: ./**/target/**/TEST-*.xml
