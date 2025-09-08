@@ -1,0 +1,46 @@
+name: Run tests
+
+on:
+  workflow_call:
+    inputs:
+      COMMIT_HASH:
+        description: 'The GitHub commit hash'
+        required: false
+        type: string
+
+permissions:
+  id-token: write
+  pull-requests: write
+  contents: write
+  issues: read
+  checks: write
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+  COMMIT_HASH: ${{ inputs.COMMIT_HASH || github.sha }}
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.COMMIT_HASH }}
+
+      - name: Setup java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Run application tests
+        run: |
+          ./mvnw clean test
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Test Report
+          path: target/surefire-reports/
