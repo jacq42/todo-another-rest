@@ -20,9 +20,11 @@ Added [APIIntegrationTest](src/test/java/de/jkrech/tutorial/todo/ports/todo/rest
 
 ## Generated API Documentation approach
 
-Start the application and access the OpenAPI documentation under:
+Implement the endpoints and add annotations to automatically create OpenApi Spec.
+To see generated spec, start the application and access the documentation under:
 - [Swagger UI](http://localhost:8080/swagger-ui/index.html)
-- Api Doc as [Json](http://localhost:8080/v3/api-docs) or [YAML](http://localhost:8080/v3/api-docs.yaml)
+- OpenApi Spec as [Json](http://localhost:8080/v3/api-docs) or [YAML](http://localhost:8080/v3/api-docs.yaml)
+- Generated OpenApi Spec while building the project: `target/generatedOpenApiSec.yaml`
 
 ## Persistence
 
@@ -59,9 +61,22 @@ Apply the volume:
 kubectl create -f jenkins-02-volume.yml
 ```
 
+When the volume can't start because of permission issues, you can try to fix it by:
+```shell
+minikube ssh
+sudo mkdir -p /mnt/jenkins
+sudo chmod 777 /mnt/jenkins
+exit
+```
+
 Apply the deployment:
 ```shell
 kubectl apply -f jenkins-03-deployment.yml
+```
+
+Apply the service:
+```shell
+kubectl apply -f jenkins-04-service.yml
 ```
 
 Check the deployment status and deployment details:
@@ -80,7 +95,7 @@ You need to unlock the jenkins with password, that can be found in the logs by d
 Get pod name and get logs:
 ```shell
 kubectl get pods --namespace=devops-tools
-kubectl logs jenkins-5874c666f4-wcz27  --namespace=devops-tools
+kubectl logs jenkins-5874c666f4-bk2js --namespace=devops-tools
 ```
 There is a message like "Please use the following password to proceed to installation"
 
@@ -88,9 +103,12 @@ After that you can install the suggested plugins and create the first admin user
 
 ### SonarQube on Kubernetes
 
-Apply the service:
+Analogously create the sonarqube in the same namespace:
 ```shell
-kubectl apply -f sonarqube-service.yml
+kubectl apply -f sonarqube-01-serviceAccount.yml
+kubectl create -f sonarqube-02-volume.yml
+kubectl apply -f sonarqube-03-deployment.yml
+kubectl apply -f sonarqube-03-service.yml
 ```
 
 Get IP of the node and access sonarqube: http://<node-ip>:30900
@@ -112,6 +130,7 @@ Create and use TOKEN for SonarQube in Jenkins:
 - [x] add service layer
 - [x] add endpoint to create new TODOs
 - [x] add endpoint to list all TODOs
-- [ ] add OpenAPI documentation
+- [x] add OpenAPI documentation
 - [x] add persistence with Hibernate and H2
 - [x] add Jenkins pipeline with SonarQube integration
+- [x] add checkstyle, spotbugs, pitest

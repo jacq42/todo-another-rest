@@ -67,7 +67,7 @@ pipeline {
         stage('Quality check') {
             steps {
                 withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) {
-                    sh './mvnw sonar:sonar -Dsonar.projectKey=todo-another-rest -Dsonar.host.url=http://http://192.168.49.2:9000 -Dsonar.login=${SONAR_TOKEN}'
+                    sh './mvnw sonar:sonar -Dsonar.projectKey=todo-another-rest -Dsonar.host.url=http://192.168.49.2:30900 -Dsonar.login=${SONAR_TOKEN}'
                 }
 
             }
