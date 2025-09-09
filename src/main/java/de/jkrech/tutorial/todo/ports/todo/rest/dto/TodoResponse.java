@@ -1,4 +1,4 @@
-package de.jkrech.tutorial.todo.ports.http;
+package de.jkrech.tutorial.todo.ports.todo.rest.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

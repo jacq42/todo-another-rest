@@ -1,0 +1,91 @@
+openapi: 3.1.0
+info:
+  title: TODO API
+  description: API for creating and managing todo items
+  version: 1.0.0
+paths:
+  /todos:
+    get:
+      summary: "Retrieve a list of todo items"
+      responses:
+        "200":
+          $ref: "#/components/responses/TodoListResponse"
+    post:
+      summary: "Create a new todo item"
+      requestBody:
+        $ref: "#/components/requestBodies/TodoRequest"
+      responses:
+        "201":
+          $ref: "#/components/responses/TodoResponse"
+        "400":
+          description: "Bad request"
+
+components:
+  requestBodies:
+    TodoRequest:
+      description: "A new todo item to create"
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/TodoRequest"
+          examples:
+            default:
+              $ref: "#/components/examples/TodoRequest"
+
+  responses:
+    TodoResponse:
+      description: "A single todo items"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/TodoResponse"
+          examples:
+            default:
+              $ref: "#/components/examples/TodoResponse"
+    TodoListResponse:
+      description: "A list of todo items"
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/TodoResponse"
+          examples:
+            default:
+              $ref: "#/components/examples/TodoResponse"
+
+  schemas:
+    TodoRequest:
+      description: A request to create a new todo item.
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          description: "The title of the todo item"
+    TodoResponse:
+      description: A response with a todo item.
+      type: object
+      required:
+        - id
+        - title
+      properties:
+        id:
+          description: The unique identifier of the todo item.
+          type: string
+        title:
+          description: The title of the todo item.
+          type: string
+
+  examples:
+    TodoRequest:
+      description: A request to create a new todo item.
+      value:
+        title: "I really need to it first"
+    TodoResponse:
+      description: A response to the successful creation of a todo item.
+      value:
+        id: "f413a86f-10cf-4d62-a6db-fa403323c07f"
+        title: "I really need to it first"
