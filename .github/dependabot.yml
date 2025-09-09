@@ -18,3 +18,6 @@ updates:
         patterns:
           - "org.springframework:*"
           - "org.springframework.boot:*"
+      atlassian-oai:
+        patterns:
+          - "com.atlassian.oai:*"
