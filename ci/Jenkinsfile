@@ -1,0 +1,80 @@
+pipeline {
+    agent any
+
+    environment {
+        MAVEN_OPTS = '-Dmaven.repo.local=.m2/repository'
+        JAVA_HOME = '/opt/java/openjdk'
+        GITHUB_REPO = 'https://github.com/jacq42/todo-another-rest.git'
+        APP_NAME = 'todo-another-rest'
+        SONARQUBE_TOKEN = credentials('sonarqube-token')
+    }
+
+    stages {
+        stage('Debug Java') {
+            steps {
+                sh '''
+                    echo "Which Java: $(which java)"
+                    echo "Java Version: $(java -version)"
+                    echo "JAVA_HOME candidates:"
+                    find /usr -name "java" -type f 2>/dev/null || true
+                    find /opt -name "java" -type f 2>/dev/null || true
+                    java --version
+                '''
+            }
+        }
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: "${GITHUB_REPO}"
+                sh 'git log --oneline -5'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh './mvnw clean compile'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh './mvnw test'
+            }
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+                }
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh './mvnw package -DskipTests'
+            }
+            post {
+                success {
+                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                }
+            }
+        }
+
+        stage('Quality Check') {
+            steps {
+                withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) {
+                    sh './mvnw sonar:sonar -Dsonar.projectKey=todo-another-rest -Dsonar.host.url=http://http://192.168.49.2:9000 -Dsonar.login=${SONAR_TOKEN}'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed! Check logs for details.'
+        }
+    }
+}
