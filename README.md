@@ -1,3 +1,5 @@
+[![PITest](https://github.com/jacq42/todo-another-rest/actions/workflows/testQuality.yml/badge.svg)](https://github.com/jacq42/todo-another-rest/actions/workflows/testQuality.yml)
+
 # TODO another REST
 
 Sample Spring boot application with a REST Controller 
@@ -82,8 +84,8 @@ Create and use TOKEN for SonarQube in Jenkins:
 
 - [x] add domain objects
 - [x] add service layer
-- [ ] add endpoint to create new TODOs
-- [ ] add endpoint to list all TODOs
+- [x] add endpoint to create new TODOs
+- [x] add endpoint to list all TODOs
 - [ ] add OpenAPI documentation
 - [x] add persistence with Hibernate and H2
 - [x] add Jenkins pipeline with SonarQube integration
