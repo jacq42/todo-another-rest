@@ -20,7 +20,7 @@ public class TodoJpaRepository implements TodoRepository {
     private EntityManager entityManager;
 
     @Override
-    public Todo save(Todo todo) {
+    public Todo save(final Todo todo) {
         TodoEntity entity = toEntity(todo);
         if (entity.getId() == null) {
             entityManager.persist(entity);
@@ -31,7 +31,7 @@ public class TodoJpaRepository implements TodoRepository {
     }
 
     @Override
-    public Optional<Todo> findById(UUID id) {
+    public Optional<Todo> findById(final UUID id) {
         final TodoEntity entity = entityManager.find(TodoEntity.class, id);
         return Optional.ofNullable(entity).map(this::toDomain);
     }
@@ -46,7 +46,7 @@ public class TodoJpaRepository implements TodoRepository {
     }
 
     @Override
-    public void deleteById(UUID id) {
+    public void deleteById(final UUID id) {
         final TodoEntity entity = entityManager.find(TodoEntity.class, id);
         if (entity != null) {
             entityManager.remove(entity);
@@ -59,7 +59,7 @@ public class TodoJpaRepository implements TodoRepository {
     }
 
     @Override
-    public boolean existsById(UUID id) {
+    public boolean existsById(final UUID id) {
         final Long count = entityManager.createQuery(
                         "SELECT COUNT(t) FROM TodoEntity t WHERE t.id = :id", Long.class)
                 .setParameter("id", id)
@@ -67,8 +67,8 @@ public class TodoJpaRepository implements TodoRepository {
         return count > 0;
     }
 
-    private TodoEntity toEntity(Todo todo) {
-        TodoEntity entity = new TodoEntity();
+    private TodoEntity toEntity(final Todo todo) {
+        final TodoEntity entity = new TodoEntity();
         entity.setId(todo.id());
         entity.setTitle(todo.title().value());
         entity.setDescription("not ye implemented");
@@ -76,7 +76,7 @@ public class TodoJpaRepository implements TodoRepository {
         return entity;
     }
 
-    private Todo toDomain(TodoEntity entity) {
+    private Todo toDomain(final TodoEntity entity) {
         return Todo.of(entity.getId(), entity.getTitle());
     }
 }

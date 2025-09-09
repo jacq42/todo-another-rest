@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+        "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+
+<module name="Checker">
+
+    <module name="SuppressWarningsFilter"/>
+
+    <!-- Die Zeilenlänge beträgt maximal 132 Zeichen -->
+    <module name="LineLength">
+        <property name="severity" value="warning"/>
+        <property name="max" value="132"/>
+    </module>
+
+    <module name="TreeWalker">
+        <module name="SuppressWarningsHolder"/>
+
+        <!-- ERROR -->
+
+        <!-- Kein Überschreiben von equals() ohne gleichzeitiges Überschreiben von .hashCode() -->
+        <module name="EqualsHashCode"/>
+
+        <!-- Methodendeklarationen haben maximal 3 Parameter -->
+        <module name="ParameterNumber">
+            <property name="tokens" value="METHOD_DEF"/>
+            <property name="max" value="3"/>
+        </module>
+
+        <!-- Kein break und continue in Schleifen -->
+        <module name="DescendantToken">
+            <property name="tokens" value="LITERAL_DO,LITERAL_WHILE,LITERAL_FOR"/>
+            <property name="limitedTokens" value="LITERAL_BREAK,LITERAL_CONTINUE"/>
+            <property name="maximumNumber" value="0"/>
+        </module>
+
+        <!-- Keine Kommentierung mit "FixMe" (in beliebiger Schreibweise) -->
+        <module name="TodoComment">
+            <property name="format" value="((f|F)(i|I)(x|X)(m|M)(e|E))|((t|T)(o|O)(d|D)(o|O))"/>
+        </module>
+
+        <!-- Keine Importe von sun.* -->
+        <module name="IllegalImport"/>
+
+        <!-- keine Logausgaben nach StdOut -->
+        <module name="Regexp">
+            <property name="format" value="printStackTrace\s*\(\s*\)|System.out.print|System.err.print"/>
+            <property name="message" value="Print to StdOut"/>
+            <property name="illegalPattern" value="true"/>
+            <property name="ignoreComments" value="true"/>
+        </module>
+
+        <!-- keine Local Variable ohne final -->
+        <module name="FinalLocalVariable">
+            <property name="tokens" value="VARIABLE_DEF,PARAMETER_DEF"/>
+            <property name="validateEnhancedForLoopVariable" value="true"/>
+        </module>
+
+        <!-- keine Parameters ohne final -->
+        <module name="FinalParameters">
+            <property name="ignorePrimitiveTypes" value="true"/>
+            <property name="tokens" value="METHOD_DEF, CTOR_DEF, LITERAL_CATCH, FOR_EACH_CLAUSE"/>
+        </module>
+
+        <!-- WARNING -->
+
+        <!-- Klassen mit ausschließlich privaten Konstruktoren sind final -->
+        <module name="FinalClass">
+            <property name="severity" value="warning"/>
+        </module>
+
+        <!-- Hilfklassen (Klassen mit nur statischen Methoden/Feldern) haben keine öffentlichen Konstruktoren -->
+        <module name="HideUtilityClassConstructor">
+            <property name="severity" value="warning"/>
+        </module>
+
+        <!-- Die Länge von Methoden beträgt maximal 50 Zeilen -->
+        <module name="MethodLength">
+            <property name="severity" value="warning"/>
+            <property name="tokens" value="METHOD_DEF"/>
+            <property name="max" value="30"/>
+            <property name="countEmpty" value="false"/>
+        </module>
+
+        <!-- Keine Importe mit .* -->
+        <module name="AvoidStarImport">
+            <property name="severity" value="warning"/>
+        </module>
+
+        <!-- Die maximale Verschachtelungstiefe innerhalb von Methode, Kontruktoren und Initialisierungsblöcken.
+            (Damit sind nicht rekursive Aufrufe gemeint!) -->
+        <module name="CyclomaticComplexity">
+            <property name="severity" value="warning"/>
+            <property name="max" value="10"/>
+        </module>
+
+        <!-- Keine "TODO:" in Kommentaren -->
+        <module name="TodoComment">
+            <property name="severity" value="warning"/>
+        </module>
+
+        <!-- Keine unbenutzten Imports -->
+        <module name="UnusedImports">
+            <property name="severity" value="error"/>
+        </module>
+
+        <!-- Keine redundanten Imports (z.B. aus dem gleichen Package) -->
+        <module name="RedundantImport">
+            <property name="severity" value="error"/>
+        </module>
+
+        <!-- Nutzung des Java-Array-Styles (String[] args anstatt String args[])-->
+        <module name="ArrayTypeStyle">
+            <property name="severity" value="warning"/>
+        </module>
+
+
+        <!-- INFO -->
+
+        <!-- Einhaltung der Reihenfolge der Modifier public, protected, private, abstract, static, .. -->
+        <module name="ModifierOrder">
+            <property name="severity" value="error"/>
+        </module>
+
+        <!-- Verschiedene Namenskonventionen für Bezeichner -->
+        <module name="LocalFinalVariableName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="LocalVariableName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="MemberName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="MethodName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="MethodTypeParameterName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="PackageName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="ParameterName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="StaticVariableName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="TypeName">
+            <property name="severity" value="error"/>
+        </module>
+    </module>
+
+</module>

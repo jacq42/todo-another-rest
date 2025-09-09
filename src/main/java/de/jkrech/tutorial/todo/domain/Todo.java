@@ -1,10 +1,10 @@
 package de.jkrech.tutorial.todo.domain;
 
-import lombok.ToString;
+import lombok.Value;
 
 import java.util.UUID;
 
-@ToString
+@Value
 public class Todo {
 
     public static Todo createNewWith(final String title) {
@@ -18,14 +18,16 @@ public class Todo {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("Title must not be null or blank");
         }
-        Todo todo = new Todo();
-        todo.id = id;
-        todo.title = TodoTitle.of(title);
-        return todo;
+        return new Todo(id, TodoTitle.of(title));
     }
 
-    private UUID id;
-    private TodoTitle title;
+    UUID id;
+    TodoTitle title;
+
+    private Todo(final UUID id, final TodoTitle title) {
+        this.id = id;
+        this.title = title;
+    }
 
     public UUID id() {
         return id;
