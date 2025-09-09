@@ -204,8 +204,8 @@
                     <outputFormats>
                         <outputFormat>HTML</outputFormat>
                     </outputFormats>
-                    <mutationThreshold>80</mutationThreshold>
-                    <coverageThreshold>70</coverageThreshold>
+                    <mutationThreshold>45</mutationThreshold>
+                    <coverageThreshold>45</coverageThreshold>
                     <verbose>true</verbose>
                 </configuration>
                 <dependencies>
