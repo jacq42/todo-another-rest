@@ -1,32 +1,41 @@
 package de.jkrech.tutorial.todo.application;
 
-import org.junit.jupiter.api.BeforeEach;
+import de.jkrech.tutorial.todo.domain.Todo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoSettings;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
+@MockitoSettings
 class TodoServiceTest {
 
-    private TodoService testee;
+    @Mock
+    private Todo todoMock;
 
-    @BeforeEach
-    void setUp() {
-        testee = new TodoService();
-    }
+    @Mock
+    private TodoRepository todoRepositoryMock;
+
+    @InjectMocks
+    private TodoService testee;
 
     @Test
     void shouldCreateAndAddTodoWithTitle() {
         // given
         final String title = "My first todo";
+        when(todoRepositoryMock.save(any())).thenReturn(todoMock);
 
         // when
-        final var todoId = testee.createAndAddTodoWithTitle(title);
+        final Todo todo = testee.createAndAddTodoWithTitle(title);
 
         // then
-        assertThat(todoId).isNotNull();
+        assertThat(todo).isEqualTo(todoMock);
     }
 
     @ParameterizedTest
