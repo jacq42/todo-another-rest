@@ -9,6 +9,7 @@ This is a sample spring boot application to demonstrate the implementation of:
 - OpenAPI documentation
 - Hibernate persistence layer
 - Jenkins pipeline with SonarQube integration
+- Integration of [checkstyle](https://checkstyle.org/), [spotbugs](https://spotbugs.github.io/), [pitest](https://pitest.org/)
 
 The application lists existing TODOs and can create new items.
 

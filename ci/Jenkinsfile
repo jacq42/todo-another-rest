@@ -38,6 +38,7 @@ pipeline {
         stage('Prechecks') {
             steps {
                 sh './mvnw checkstyle:check'
+                sh './mvnw spotbugs:check'
             }
         }
 
