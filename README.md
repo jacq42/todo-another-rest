@@ -12,6 +12,17 @@ This is a sample spring boot application to demonstrate the implementation of:
 
 The application lists existing TODOs and can create new items.
 
+## API first approach
+
+Created the [OpenAPI specification](src/main/resources/api-specs/todo-spec.yaml) first and generated the endpoints.
+Added [APIIntegrationTest](src/test/java/de/jkrech/tutorial/todo/ports/todo/rest/TodoResourceApiIntegrationTest.java) with OpenApiValidationFilter to validate the implementation against the spec.
+
+## Generated API Documentation approach
+
+Start the application and access the OpenAPI documentation under:
+- [Swagger UI](http://localhost:8080/swagger-ui/index.html)
+- Api Doc as [Json](http://localhost:8080/v3/api-docs) or [YAML](http://localhost:8080/v3/api-docs.yaml)
+
 ## Persistence
 
 Uses Hibernate and H2 in memory database

@@ -21,3 +21,6 @@ updates:
       atlassian-oai:
         patterns:
           - "com.atlassian.oai:*"
+      springdoc:
+        patterns:
+          - "org.springdoc:*"

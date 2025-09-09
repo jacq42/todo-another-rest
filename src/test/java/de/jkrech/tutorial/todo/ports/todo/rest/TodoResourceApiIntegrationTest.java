@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
 @AutoConfigureMockMvc
-class TodoResourceIntegrationTest extends IntegrationTest {
+class TodoResourceApiIntegrationTest extends IntegrationTest {
 
     private static final String RESOURCE_BASE_PATH = "/todos";
 
