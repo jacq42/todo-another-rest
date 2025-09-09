@@ -2,9 +2,23 @@
 
 # TODO another REST
 
-Sample Spring boot application with a REST Controller 
+## Purpose
 
-* Lists TODOs and can delete one item by ID
+This is a sample spring boot application to demonstrate the implementation of:
+- REST Controller
+- OpenAPI documentation
+- Hibernate persistence layer
+- Jenkins pipeline with SonarQube integration
+
+The application lists existing TODOs and can create new items.
+
+## Persistence
+
+Uses Hibernate and H2 in memory database
+
+Connect to H2 console: http://localhost:8080/h2-console
+
+Use JBDC URL: `jdbc:h2:mem:testdb` and user `sa` with empty password to connect to current database.
 
 ## Requirements
 

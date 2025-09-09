@@ -6,7 +6,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -16,10 +18,15 @@ import java.util.UUID;
 public class TodoEntity {
 
     @Id
+    @Column(name = "id", nullable = false, unique = true, updatable = false)
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
+
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Instant createdAt;
 
     @Column
     private String description;
@@ -27,11 +34,4 @@ public class TodoEntity {
     @Column(nullable = false)
     private boolean completed = false;
 
-    public TodoEntity() {}
-
-    public TodoEntity(String title, String description) {
-        this.title = title;
-        this.description = description;
-        this.completed = false;
-    }
 }
