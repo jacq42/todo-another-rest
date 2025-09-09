@@ -1,19 +1,21 @@
 package de.jkrech.tutorial.todo;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class OpenApiGeneratedTest extends IntegrationTest {
+class OpenApiGeneratedIntegrationTest {
 
     @Test
-    @Disabled
     void shouldGenerateOpenApiDocumentation() {
         // given
-        final String openApiSpec = readResource("META-INF/swagger/todo-1.0.0.yml");
+        final File openApiFile = new File("target/generatedOpenApiSpec.yaml");
 
-        // when /
-        assertThat(openApiSpec).isNotEmpty();
+        // when / then
+        assertThat(openApiFile)
+                .withFailMessage("OpenApi specification file not found.")
+                .exists();
     }
 }
