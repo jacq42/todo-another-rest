@@ -159,6 +159,25 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.15.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>post-integration-test</phase>
+                        <configuration>
+                            <inputSpec>${project.build.directory}/generatedOpenApiSpec.yaml</inputSpec>
+                            <generatorName>asciidoc</generatorName>
+                            <configOptions>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
@@ -224,7 +243,6 @@
                     <configLocation>quality/checkstyle/checkstyle.xml</configLocation>
                     <suppressionsLocation>quality/checkstyle/suppressions.xml</suppressionsLocation>
                     <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
-                    <encoding>UTF-8</encoding>
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                     <linkXRef>false</linkXRef>
